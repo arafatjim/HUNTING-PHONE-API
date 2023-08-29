@@ -12,7 +12,7 @@
                     <h1 class="text-6xl">Hunting Phone</h1>
           </header>
           <main class="container mx-auto my-10">
-            <section class="p-4 m-10 grid  bg-gray-100 items-center lg: grid-cols-2">
+            <section class="p-4 m-10 grid bg-gray-100 items-center lg: grid-cols-2">
               
               <input id="search-field" type="text" placeholder="Search here" class="input bg-black w-9/12 text-white  input-bordered w-full max-w-xs" />
               <button onclick="handleSearch()" class="btn btn-success w-36 text-white ">Search</button>
@@ -39,7 +39,8 @@
                                                 </div>         -->
                               </div>
                               <!-- show all btn -->
-                              <div class="hidden text-end" id="show-all-btn-container">
+
+                              <div onclick="handleShowAll()" class="hidden text-center pt-6" id="show-all-btn-container">
                                 <button class="btn btn-accent">Show all</button>
                               </div>
                     </section>
