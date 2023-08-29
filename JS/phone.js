@@ -9,7 +9,7 @@ const loadPhone= async (searchText) =>{
 const displayPhones = phones =>{
          // console.log(phones);
          const phoneContainer=document.getElementById('phone-container');
-         phoneContainer.innerText='';
+         phoneContainer.textContent='';
          phones.forEach(phone => {
           console.log(phone);
           //1.create a div
