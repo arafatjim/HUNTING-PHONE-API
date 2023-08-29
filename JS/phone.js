@@ -1,4 +1,4 @@
-const loadPhone= async (searchText, isShowAll) =>{
+const loadPhone= async (searchText='samsung', isShowAll) =>{
           const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
           const data = await res.json();
           const phones= data.data;
@@ -25,20 +25,20 @@ const displayPhones = (phones,isShowAll) =>{
           phones=phones.slice(0,12);
          }
     phones.forEach(phone => {
-          console.log(phone);
+         // console.log(phone);
           //1.create a div
           const phoneCard=document.createElement('div');
           phoneCard.classList=`card w-84 bg-gray-100 shadow-xl`;
           phoneCard.innerHTML=`
           
-       <figure class="px-10 pt-10">
+       <figure class="px-10 pt-10 ">
           <img src="${phone.image}" />
         </figure>
-        <div class="card-body items-center text-center">
+        <div class="card-body items-center text-center bg-black-400">
           <h2 class="card-title">${phone.phone_name}</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
+          <p>There are many variations of passages of available, but the majority have suffered</p>
           <div class="card-actions">
-            <button class="btn btn-primary">Buy Now</button>
+            <button onclick="handleShowDetails('${phone.slug}')" class="btn btn-primary bg-[#36D399] text-white">Show Details</button>
           </div>
         </div>
         
@@ -49,6 +49,49 @@ const displayPhones = (phones,isShowAll) =>{
          toggleLoadingSpinner(false);
          
 }
+//show details
+const handleShowDetails = async(id) =>{
+  //console.log('show details clicked',id);
+  // load single data
+  const res= await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+  const data= await res.json();
+  const phone=data.data;
+
+  showPhoneDetails(phone);
+}
+
+const showPhoneDetails= (phone) =>{
+  console.log(phone);
+
+  //const phoneName=document.getElementById('show-detail-phone-name');
+  //phoneName.innerText=phone.name;
+  const showDetailContainer=document.getElementById('show-detail-container');
+  showDetailContainer.innerHTML=`
+  <div class="card card-compact w-96 bg-base-100 ">
+  <figure class="w-80"><img src="${phone.image}" alt="Shoes" /></figure>
+  <div class="card-body">
+  <p>There are many variations of passages of available, but the majority have suffered</p>
+    <h2 class="card-title">${phone.name}</h2>
+    
+    <p><span class="text-xl font-semibold">Storage : </span>${phone?.mainFeatures?.storage}</p>
+    <p><span class="text-xl font-semibold">Display : </span>${phone?.mainFeatures?.displaySize}</p>
+    <p><span class="text-xl font-semibold">ChipSet : </span>${phone?.mainFeatures?.chipSet}</p>
+    <p><span class="text-xl font-semibold">Bluetooth : </span>${phone?.others?.Bluetooth}</p>
+    <p><span class="text-xl font-semibold">Gps : </span>${phone?.others?.GPS}</p>
+    <p><span class="text-xl font-semibold">Brand : </span class="font-semibold">${phone?.brand}</p>
+    <p><span class="text-xl font-semibold">Release Date : </span>${phone?.releaseDate}</p>
+    <p><span class="text-xl font-semibold">Slug : </span>${phone?.slug}</p>
+    
+  </div>
+</div>
+  `;
+  
+
+  //show modal
+  show_details_modal.showModal();
+  //toggleLoadingSpinner(true);
+}
+
 const handleSearch =(isShowAll) =>{
   toggleLoadingSpinner(true);
          const searchField=document.getElementById('search-field');
@@ -77,4 +120,4 @@ const handleShowAll = () =>{
 //         console.log(searchText);
 //         loadPhone(searchText);
 // }
-//loadPhone();
+loadPhone();
